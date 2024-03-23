@@ -6,15 +6,19 @@ local M = {
 function M.config()
   local wk = require "which-key"
   wk.register {
-    ["<leader>bb"] = { "<cmd>Telescope buffers previewer=false<cr>", "Find" },
+    ["<leader><Space>"] = { "<cmd>Telescope buffers previewer=true<cr>", "Opened buffers" },
     ["<leader>fb"] = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     ["<leader>fc"] = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
     ["<leader>ff"] = { "<cmd>Telescope find_files<cr>", "Find files" },
     ["<leader>fp"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
-    ["<leader>ft"] = { "<cmd>Telescope live_grep<cr>", "Find Text" },
+    ["<leader>ft"] = { "<cmd>Telescope live_grep<cr>", "Find Text (live_grep)" },
+    ["<leader>fs"] = { "<cmd>Telescope grep_string<cr>", "Find String (grep_string)" },
     ["<leader>fh"] = { "<cmd>Telescope help_tags<cr>", "Help" },
     ["<leader>fl"] = { "<cmd>Telescope resume<cr>", "Last Search" },
     ["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
+    ["<leader>bn"] = { "<cmd>bn<cr>", "next buffer" },
+    ["<leader>bp"] = { "<cmd>bp<cr>", "prev buffer" },
+--    ["<leader>*"] = { ":%s/\<C-r><C-w>\>/", "Substitute" },
   }
 
   local icons = require "user.icons"
@@ -28,7 +32,7 @@ function M.config()
       entry_prefix = "   ",
       initial_mode = "insert",
       selection_strategy = "reset",
-      path_display = { "smart" },
+      path_display = { "absolute" },
       color_devicons = true,
       vimgrep_arguments = {
         "rg",
@@ -59,23 +63,32 @@ function M.config()
       },
     },
     pickers = {
-      live_grep = {
-        theme = "dropdown",
-      },
+        initial_mode = "normal",
+--      live_grep = {
+--        theme = "dropdown",
+--      },
 
       grep_string = {
-        theme = "dropdown",
+--        theme = "dropdown",
+        initial_mode = "normal",
       },
 
+      live_grep = {
+--        theme = "dropdown",
+        initial_mode = "insert",
+      },
       find_files = {
-        theme = "dropdown",
-        previewer = false,
+--        theme = "dropdown",
+--        previewer = false,
       },
 
       buffers = {
-        theme = "dropdown",
-        previewer = false,
-        initial_mode = "normal",
+--        theme = "dropdown",
+    	previewer = true,
+        initial_mode = "insert",
+		scroll_strategy = "cycle", -- not cycling through list --[[ limit ]]
+		sorting_strategy = "descending",
+		sort_lastused = true, -- more logical
         mappings = {
           i = {
             ["<C-d>"] = actions.delete_buffer,
@@ -96,22 +109,24 @@ function M.config()
       },
 
       lsp_references = {
-        theme = "dropdown",
+    	previewer = true,
+
+        -- theme = "dropdown",
         initial_mode = "normal",
       },
 
       lsp_definitions = {
-        theme = "dropdown",
+        -- theme = "dropdown",
         initial_mode = "normal",
       },
 
       lsp_declarations = {
-        theme = "dropdown",
+        -- theme = "dropdown",
         initial_mode = "normal",
       },
 
       lsp_implementations = {
-        theme = "dropdown",
+        -- theme = "dropdown",
         initial_mode = "normal",
       },
     },
@@ -125,5 +140,6 @@ function M.config()
     },
   }
 end
+
 
 return M

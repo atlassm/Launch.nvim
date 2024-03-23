@@ -17,6 +17,7 @@ local function lsp_keymaps(bufnr)
   keymap(bufnr, "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
   keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
   keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+  vim.keymap.set('n', 'ds', require('telescope.builtin').lsp_document_symbols, { buffer = bufnr, desc = 'Document Symbols' })
 end
 
 M.on_attach = function(client, bufnr)
@@ -71,11 +72,11 @@ function M.config()
     "html",
     "tsserver",
     "eslint",
-    "tsserver",
     "pyright",
     "bashls",
     "jsonls",
     "yamlls",
+    "clangd",
   }
 
   local default_diagnostic_config = {
