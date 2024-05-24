@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = function()
-    vim.highlight.on_yank { higroup = "Visual", timeout = 40 }
+    vim.highlight.on_yank { higroup = "Visual", timeout = 100 }
   end,
 })
 
@@ -61,16 +61,17 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "CursorHold" }, {
-  callback = function()
-    local status_ok, luasnip = pcall(require, "luasnip")
-    if not status_ok then
-      return
-    end
-    if luasnip.expand_or_jumpable() then
-      -- ask maintainer for option to make this silent
-      -- luasnip.unlink_current()
-      vim.cmd [[silent! lua require("luasnip").unlink_current()]]
-    end
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "CursorHold" }, {
+--   callback = function()
+--     local status_ok, luasnip = pcall(require, "luasnip")
+--     if not status_ok then
+--       return
+--     end
+--     if luasnip.expand_or_jumpable() then
+--       -- ask maintainer for option to make this silent
+--       -- luasnip.unlink_current()
+--       vim.cmd [[silent! lua require("luasnip").unlink_current()]]
+--
+--     end
+--   end,
+-- })

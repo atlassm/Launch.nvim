@@ -6,6 +6,10 @@ local M = {
 
 function M.config()
   vim.cmd.colorscheme "darkplus"
+-- -- Set background colors for diff highlighting
+-- vim.cmd('highlight DiffAdd guibg=#00cc00')
+-- vim.cmd('highlight DiffChange guibg=#001C36')
+-- vim.cmd('highlight DiffDelete guibg=#280000')
 end
 
 return M

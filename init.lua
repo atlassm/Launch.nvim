@@ -28,6 +28,7 @@ spec "user.trailertrash"
 spec "user.harpoon"
 spec "user.neotest"
 spec "user.autopairs"
+
 -- spec "user.neogit"
 spec "user.alpha"
 -- --spec "user.project"
@@ -38,3 +39,7 @@ spec "user.nvim-nio"
 -- spec "user.vim-tmux-navigator"
 spec "user.obsidian"
 require "user.lazy"
+
+-- if string.match(vim.fn.getcwd(), "alpha3") then
+-- 	vim.cmd("source /home/shlomime/my_folder/nvim_ws/alpha3_session.vim")
+-- end

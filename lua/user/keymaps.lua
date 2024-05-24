@@ -24,6 +24,7 @@ keymap("n", "g#", "g#zz", opts)
 keymap("n", "<C-d>", "<C-d>zz", opts)
 keymap("n", "<C-u>", "<C-u>zz", opts)
 keymap("n", "<C-o>", "<C-o>zz", opts)
+keymap("n", "<C-i>", "<C-i>zz", opts)
 
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
@@ -63,7 +64,8 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 keymap("i", "kj", "<ESC>", opts)
 keymap("i", "jk", "<ESC>", opts)
 -- This one enables autosave when pressing ^c in insert mode (preventing pressing Esc or jk)
-keymap("i", "<C-c>", "<Esc>:TrailerTrim<CR>", opts)
+-- keymap("i", "<C-c>", "<Esc>:TrailerTrim<CR>", opts)
+keymap("i", "<C-c>", "<Esc>", opts)
 
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)

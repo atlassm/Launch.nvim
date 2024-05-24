@@ -1,6 +1,13 @@
 local M = {
   "nvim-telescope/telescope.nvim",
-  dependencies = { { "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true } },
+  dependencies = {
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make", lazy = true },
+		{ "nvim-telescope/telescope-live-grep-args.nvim" ,
+            -- This will not install any breaking changes.
+            -- For major updates, this must be adjusted manually.
+            version = "^1.0.0",
+        },
+  },
 }
 
 function M.config()
@@ -78,15 +85,19 @@ function M.config()
         initial_mode = "insert",
       },
       find_files = {
+		  path_display = {"absolute"},
 --        theme = "dropdown",
 --        previewer = false,
       },
-
+      oldfiles = {
+        initial_mode = "normal",
+      },
       buffers = {
 --        theme = "dropdown",
     	previewer = true,
-        initial_mode = "insert",
-		scroll_strategy = "cycle", -- not cycling through list --[[ limit ]]
+        initial_mode = "normal",
+		-- scroll_strategy = "cycle", -- not cycling through list --[[ limit ]]
+		scroll_strategy = "limit", -- not cycling through list --[[ limit ]]
 		sorting_strategy = "descending",
 		sort_lastused = true, -- more logical
         mappings = {
@@ -139,6 +150,8 @@ function M.config()
       },
     },
   }
+
+	require("telescope").load_extension("live_grep_args")
 end
 
 
