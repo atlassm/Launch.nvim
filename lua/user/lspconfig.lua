@@ -8,6 +8,37 @@ local M = {
   },
 }
 
+function DiagnosticsToQuickfix(current_buf)
+	local qflist = {}
+
+	if current_buf == false then
+		for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
+			BufDiagnosticsToQuickfix(qflist, bufnr)
+		end
+	else
+		BufDiagnosticsToQuickfix(qflist, 0)
+	end
+
+	vim.fn.setqflist(qflist, 'r')
+	vim.cmd('copen')
+	print("Diagnostics inserted to quickfix list")
+end
+
+function BufDiagnosticsToQuickfix(qflist, bufnr)
+  local diagnostics = vim.diagnostic.get(bufnr) -- `0` gets diagnostics for the current buffer
+  for _, diagnostic in ipairs(diagnostics) do
+    local item = {
+      bufnr = diagnostic.bufnr,
+      lnum = diagnostic.lnum + 1,
+      col = diagnostic.col + 1,
+      text = diagnostic.message,
+      type = diagnostic.severity == vim.diagnostic.severity.ERROR and 'E' or 'W',
+    }
+	-- print(diagnostic.code)
+    table.insert(qflist, item)
+  end
+end
+
 local function lsp_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
   local keymap = vim.api.nvim_buf_set_keymap
@@ -18,6 +49,7 @@ local function lsp_keymaps(bufnr)
   keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
   keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
   vim.keymap.set('n', 'ds', require('telescope.builtin').lsp_document_symbols, { buffer = bufnr, desc = 'Document Symbols' })
+  -- vim.api.nvim_set_keymap('n', '<leader>qc', ':lua SetDiagnosticsToQuickfix()<CR>', { noremap = true, silent = true })
 end
 
 M.on_attach = function(client, bufnr)
@@ -104,6 +136,8 @@ function M.config()
   }
 
   vim.diagnostic.config(default_diagnostic_config)
+
+  vim.cmd("command! DiagnosticsToQuickfix lua DiagnosticsToQuickfix(true)")
 
   for _, sign in ipairs(vim.tbl_get(vim.diagnostic.config(), "signs", "values") or {}) do
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })

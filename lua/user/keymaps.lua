@@ -25,6 +25,7 @@ keymap("n", "<C-d>", "<C-d>zz", opts)
 keymap("n", "<C-u>", "<C-u>zz", opts)
 keymap("n", "<C-o>", "<C-o>zz", opts)
 keymap("n", "<C-i>", "<C-i>zz", opts)
+keymap("n", "u", "u", opts)
 
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
@@ -96,8 +97,27 @@ keymap("t", "<C-q>", "<Ctrl-\\><Ctrl-N>", term_opts)
 
 --vim.api.nvim_set_keymap('v', 'C-f-d', 'y<ESC>:Telescope live_grep default_text=<C-r>0<CR>', opts)
 
+local function note_taker()
+    vim.cmd("e " .. os.getenv("HOME") .. "/my_folder/notes.md")
 
---osc52
---vim.keymap.set('n', '<leader>c', require('osc52').copy_operator, opts2)
---vim.keymap.set('n', '<leader>cc', '<leader>c_', {remap = true})
---vim.keymap.set('v', '<leader>c', require('osc52').copy_visual)
+    -- Execute the commands
+    vim.cmd("norm Go")
+    vim.cmd("norm Go## " .. os.date("%d/%m/%y-%H:%M"))
+    vim.cmd("norm G2o")
+    vim.cmd("norm zz")
+    vim.cmd("startinsert")
+end
+
+local function draft_taker()
+    vim.cmd("e " .. os.getenv("HOME") .. "/my_folder/drafts.txt")
+
+    -- Execute the commands
+    vim.cmd("norm Go")
+    vim.cmd("norm Go## " .. os.date("%d/%m/%y-%H:%M"))
+    vim.cmd("norm G2o")
+    vim.cmd("norm zz")
+    vim.cmd("startinsert")
+end
+
+keymap('n', '<leader>nn', note_taker, opts)
+keymap('n', '<leader>nd', draft_taker, opts)

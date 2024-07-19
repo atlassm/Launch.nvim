@@ -1,3 +1,6 @@
+local keymap = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
 local M = {
   "nvim-telescope/telescope.nvim",
   dependencies = {
@@ -9,6 +12,19 @@ local M = {
         },
   },
 }
+
+function vim.getVisualSelection()
+	vim.cmd('noau normal! "vy"')
+	local text = vim.fn.getreg('v')
+	vim.fn.setreg('v', {})
+
+	text = string.gsub(text, "\n", "")
+	if #text > 0 then
+		return text
+	else
+		return ''
+	end
+end
 
 function M.config()
   local wk = require "which-key"
@@ -82,7 +98,7 @@ function M.config()
 
       live_grep = {
 --        theme = "dropdown",
-        initial_mode = "insert",
+        -- initial_mode = "insert",
       },
       find_files = {
 		  path_display = {"absolute"},
@@ -152,7 +168,20 @@ function M.config()
   }
 
 	require("telescope").load_extension("live_grep_args")
-end
 
+	local tb = require('telescope.builtin')
+
+	-- keymap('n', '<space>g', ':Telescope current_buffer_fuzzy_find<cr>', opts)
+	-- keymap('v', '<space>g', function()
+		-- 	local text = vim.getVisualSelection()
+		-- 	tb.current_buffer_fuzzy_find({ default_text = text })
+		-- end, opts)
+
+		keymap('v', '<leader>ft', function()
+			local text = vim.getVisualSelection()
+			tb.live_grep({ default_text = text })
+		end, opts)
+
+end
 
 return M
