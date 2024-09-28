@@ -30,7 +30,7 @@ vim.opt.laststatus = 3
 vim.opt.showcmd = false
 vim.opt.ruler = true
 vim.opt.relativenumber = true -- set relative numbered lines
-vim.opt.numberwidth = 2 -- set number column width to 2 {default 4}
+vim.opt.numberwidth = 4 -- set number column width to 2 {default 4}
 vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
 vim.opt.wrap = false -- display lines as one long line
 vim.opt.scrolloff = 0
@@ -53,4 +53,5 @@ vim.g.loaded_netrwPlugin = 0
 -- vim.g.netrw_banner = 0
 -- vim.g.netrw_mouse = 2
 
+vim.opt.winbar = "%m %f"
 vim.opt.foldenable = false; -- irritating when in diff so disabling it

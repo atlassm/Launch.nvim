@@ -57,7 +57,7 @@ end
 			entry_prefix = "   ",
 			initial_mode = "insert",
 			selection_strategy = "reset",
-			path_display = { "absolute" },
+			path_display = { "relative" },
 			color_devicons = true,
 			vimgrep_arguments = {
 				"rg",
@@ -102,7 +102,7 @@ end
 
 			live_grep = {
 				--        theme = "dropdown",
-				-- initial_mode = "insert",
+				initial_mode = "insert",
 			},
 			find_files = {
 				path_display = {"absolute"},
@@ -175,7 +175,9 @@ end
 
 	local tb = require('telescope.builtin')
 
-	-- keymap('n', '<space>g', ':Telescope current_buffer_fuzzy_find<cr>', opts)
+	keymap('n', "<C-f>", ':Telescope current_buffer_fuzzy_find<cr>', { noremap = true, silent = true, desc = "current buffer fzf"})
+	keymap('n', 'q:', ':Telescope command_history<cr>', { noremap = true, silent = true, desc = "open command line history"})
+
 	-- keymap('v', '<space>g', function()
 	-- 	local text = vim.getVisualSelection()
 	-- 	tb.current_buffer_fuzzy_find({ default_text = text })

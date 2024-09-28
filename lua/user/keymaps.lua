@@ -89,11 +89,11 @@ keymap("x", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 
 -- Terminal --
 -- Better terminal navigation
--- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
--- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
--- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
--- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
-keymap("t", "<C-q>", "<Ctrl-\\><Ctrl-N>", term_opts)
+keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", opts)
+keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", opts)
+keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", opts)
+keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", opts)
+keymap("t", "<C-q>", "<C-\\><C-n>", opts)
 
 --vim.api.nvim_set_keymap('v', 'C-f-d', 'y<ESC>:Telescope live_grep default_text=<C-r>0<CR>', opts)
 

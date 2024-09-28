@@ -1,5 +1,6 @@
 local M = {
   "folke/which-key.nvim",
+	dependencies = { { "echasnovski/mini.icons", opts = {} } },
 }
 
 function M.config()

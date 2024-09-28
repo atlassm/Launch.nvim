@@ -47,6 +47,11 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   end,
 })
 
+local function send_yank_to_a_fixed_port(file)
+	local command = string.format('cat -n %s | nc localhost 8378', file)
+	vim.fn.system(command)
+end
+
 -- Function to write yanked text directly to a new file
 local function write_yanked_text_to_file()
 	-- Get yanked text from register (assuming register "0" for yank)
@@ -73,6 +78,11 @@ local function write_yanked_text_to_file()
 
 	-- Close the file
 	file:close()
+
+	-- These commands are for writing via ssh tunnel
+	local command = string.format('echo -n "%s" | nc localhost 8378', yanked_text)
+	vim.fn.system(command)
+	-- send_yank_to_a_fixed_port(file_path)
 end
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {

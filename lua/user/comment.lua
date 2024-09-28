@@ -23,6 +23,9 @@ function M.config()
   ---@diagnostic disable: missing-fields
   require("ts_context_commentstring").setup {
     enable_autocmd = false,
+		languages = {
+			c = { __default = '// %s', __multiline = '/* %s */' },
+		},
   }
 
   require("Comment").setup {
