@@ -119,7 +119,12 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd('FileType', {
 	pattern = '*',
 	callback = function()
+		-- local filetype = vim.bo.filetype
+		-- vim.notify("Filetype: " .. filetype, vim.log.levels.INFO)
 		if vim.bo.filetype == 'lua' then
+			vim.opt_local.tabstop = 2
+			vim.opt_local.shiftwidth = 2
+		elseif vim.bo.filetype == 'python' then
 			vim.opt_local.tabstop = 2
 			vim.opt_local.shiftwidth = 2
 		else
