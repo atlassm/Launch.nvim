@@ -39,6 +39,7 @@ spec "user.indentline"
 -- spec "user.vim-tmux-navigator"
 spec "user.oil"
 spec "user.neoclip"
+spec "user.vim-maximizer"
 require "user.lazy"
 
 -- if string.match(vim.fn.getcwd(), "alpha3") then
