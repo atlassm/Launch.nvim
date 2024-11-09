@@ -41,6 +41,7 @@ function M.config()
 		["<leader>fr"] = { "<cmd>Telescope oldfiles<cr>", "Recent File" },
 		["<leader>bn"] = { "<cmd>bn<cr>", "next buffer" },
 		["<leader>bp"] = { "<cmd>bp<cr>", "prev buffer" },
+		["<leader>q:"] = { "<cmd>Telescope command_history<cr>", "Commands History" },
 		--    ["<leader>*"] = { ":%s/\<C-r><C-w>\>/", "Substitute" },
 	}
 
@@ -176,7 +177,6 @@ end
 	local tb = require('telescope.builtin')
 
 	keymap('n', "<C-f>", ':Telescope current_buffer_fuzzy_find<cr>', { noremap = true, silent = true, desc = "current buffer fzf"})
-	keymap('n', 'q:', ':Telescope command_history<cr>', { noremap = true, silent = true, desc = "open command line history"})
 
 	-- keymap('v', '<space>g', function()
 	-- 	local text = vim.getVisualSelection()
