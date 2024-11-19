@@ -41,6 +41,7 @@ spec "user.oil"
 spec "user.neoclip"
 spec "user.vim-maximizer"
 spec "user.undotree"
+spec "user.markdown-nvim"
 require "user.lazy"
 
 -- if string.match(vim.fn.getcwd(), "alpha3") then

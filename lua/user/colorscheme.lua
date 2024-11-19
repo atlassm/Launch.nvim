@@ -9,10 +9,16 @@ function M.config()
   -- vim.cmd.colorscheme "darkplus"
   vim.cmd.colorscheme "catppuccin"
   vim.g.catppuccin_flavor = "mocha" -- or "latte", "frappe", "macchiato"
--- -- Set background colors for diff highlighting
--- vim.cmd('highlight DiffAdd guibg=#00cc00')
--- vim.cmd('highlight DiffChange guibg=#001C36')
--- vim.cmd('highlight DiffDelete guibg=#280000')
 end
 
 return M
+
+-- return {
+--   "wnkz/monoglow.nvim",
+--   lazy = false,
+--   priority = 1000,
+--   opts = {},
+-- 	config = function ()
+-- 		vim.cmd.colorscheme "monoglow-z"
+-- 	end,
+-- }

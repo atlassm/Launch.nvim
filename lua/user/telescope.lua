@@ -106,6 +106,7 @@ end
 				initial_mode = "insert",
 			},
 			find_files = {
+				initial_mode = "normal",
 				path_display = {"absolute"},
 				--        theme = "dropdown",
 				--        previewer = false,
