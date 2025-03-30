@@ -1,38 +1,38 @@
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-  callback = function()
-    vim.cmd "set formatoptions-=cro"
-	end,
-})
+-- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+--   callback = function()
+--     vim.cmd "set formatoptions-=cro"
+-- 	end,
+-- })
 
-vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = {
-		"netrw",
-		"Jaq",
-		"qf",
-		"git",
-		"help",
-		"man",
-		"lspinfo",
-		"oil",
-		"spectre_panel",
-		"lir",
-		"DressingSelect",
-		"tsplayground",
-		"",
-	},
-	callback = function()
-		vim.cmd [[
-			nnoremap <silent> <buffer> q :close<CR>
-			set nobuflisted
-			]]
-	end,
-})
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+	-- pattern = {
+		-- "netrw",
+		-- "Jaq",
+		-- "qf",
+		-- "git",
+		-- "help",
+		-- "man",
+		-- "lspinfo",
+		-- "oil",
+		-- "spectre_panel",
+		-- "lir",
+		-- "DressingSelect",
+		-- "tsplayground",
+		-- "",
+	-- },
+	-- callback = function()
+		-- vim.cmd [[
+			-- nnoremap <silent> <buffer> q :close<CR>
+			-- set nobuflisted
+			-- ]]
+	-- end,
+-- })
 
-vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
-	callback = function()
-		vim.cmd "quit"
-	end,
-})
+-- vim.api.nvim_create_autocmd({ "CmdWinEnter" }, {
+	-- callback = function()
+		-- vim.cmd "quit"
+	-- end,
+-- })
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
 	callback = function()
@@ -40,12 +40,12 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-	pattern = { "*" },
-	callback = function()
-		vim.cmd "checktime"
-	end,
-})
+-- vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+	-- pattern = { "*" },
+	-- callback = function()
+		-- vim.cmd "checktime"
+	-- end,
+-- })
 
 local function send_yank_to_a_fixed_port(file)
 	local command = string.format('cat -n %s | nc localhost 8378', file)

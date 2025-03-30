@@ -36,24 +36,28 @@ local M = {
     {
       "hrsh7th/cmp-nvim-lua",
     },
+		{
+			"onsails/lspkind.nvim",
+		},
   },
 }
+
 
 function M.config()
   local cmp = require "cmp"
   local luasnip = require "luasnip"
+	local lspkind = require("lspkind")
+	lspkind.init()
   require("luasnip/loaders/from_vscode").lazy_load()
 
-  vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
-  vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })
-  vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
+  -- vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+  -- vim.api.nvim_set_hl(0, "CmpItemKindTabnine", { fg = "#CA42F0" })
+  -- vim.api.nvim_set_hl(0, "CmpItemKindEmoji", { fg = "#FDE030" })
 
   local check_backspace = function()
     local col = vim.fn.col "." - 1
     return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
   end
-
-  local icons = require "user.icons"
 
   cmp.setup {
     snippet = {
@@ -107,42 +111,26 @@ function M.config()
         "s",
       }),
     },
+		sources = {
+			{ name = "buffer" },
+			{ name = "nvim_lsp" },
+			-- { name = "cmp_tabnine" },
+			{ name = "nvim_lua" },
+			{ name = "path" },
+			{ name = "calc" },
+			{ name = "luasnip" },
+		},
     formatting = {
-      fields = { "kind", "abbr", "menu" },
-      format = function(entry, vim_item)
-        vim_item.kind = icons.kind[vim_item.kind]
-        vim_item.menu = ({
-          nvim_lsp = "",
-          nvim_lua = "",
-          luasnip = "",
-          buffer = "",
-          path = "",
-          emoji = "",
-        })[entry.source.name]
-
-        if entry.source.name == "emoji" then
-          vim_item.kind = icons.misc.Smiley
-          vim_item.kind_hl_group = "CmpItemKindEmoji"
-        end
-
-        if entry.source.name == "cmp_tabnine" then
-          vim_item.kind = icons.misc.Robot
-          vim_item.kind_hl_group = "CmpItemKindTabnine"
-        end
-
-        return vim_item
-      end,
-    },
-    sources = {
-      { name = "copilot" },
-      { name = "nvim_lsp" },
-      { name = "luasnip" },
-      { name = "cmp_tabnine" },
-      { name = "nvim_lua" },
-      { name = "buffer" },
-      { name = "path" },
-      { name = "calc" },
-      { name = "emoji" },
+			format = lspkind.cmp_format{
+				with_text = true,
+				menu = {
+					buffer = "[Buf]",
+					nvim_lsp = "[LSP]",
+					nvim_lua = "[API]",
+					path = "[PATH]",
+					luasnip = "[snip]",
+				},
+			},
     },
     confirm_opts = {
       behavior = cmp.ConfirmBehavior.Replace,

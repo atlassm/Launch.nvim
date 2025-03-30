@@ -13,8 +13,8 @@ local M = {
 	},
 }
 
-function vim.getVisualSelection()
-	vim.cmd('noau normal! "vy"')
+local function getVisualSelectionText()
+	vim.cmd('noau normal! "vy"') -- noau is no autocommands, ! is for not considering user mappings
 	local text = vim.fn.getreg('v')
 	vim.fn.setreg('v', {})
 
@@ -49,7 +49,7 @@ function M.config()
 	local actions = require "telescope.actions"
 	local function execute_norm(prompt_bufnr)
 	  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<ESC>', true, false, true), 'n', true)
-end
+	end
 
 	require("telescope").setup {
 		defaults = {
@@ -70,13 +70,16 @@ end
 				"--smart-case",
 				"--hidden",
 				"--glob=!.git/",
+-- user
 				"--glob=!part-support/",
+				"--glob=!uc_tc3/",
 			},
 
 			mappings = {
 				i = {
 					["<C-n>"] = actions.cycle_history_next,
 					["<C-p>"] = actions.cycle_history_prev,
+					["<C-y>"] = actions.file_edit,
 
 					["<C-j>"] = actions.move_selection_next,
 					["<C-k>"] = actions.move_selection_previous,
@@ -87,6 +90,7 @@ end
 					["j"] = actions.move_selection_next,
 					["k"] = actions.move_selection_previous,
 					["q"] = actions.close,
+					["<C-y>"] = actions.file_edit,
 				},
 			},
 		},
@@ -179,13 +183,8 @@ end
 
 	keymap('n', "<C-f>", ':Telescope current_buffer_fuzzy_find<cr>', { noremap = true, silent = true, desc = "current buffer fzf"})
 
-	-- keymap('v', '<space>g', function()
-	-- 	local text = vim.getVisualSelection()
-	-- 	tb.current_buffer_fuzzy_find({ default_text = text })
-	-- end, opts)
-
 	keymap('v', '<leader>ft', function()
-		local text = vim.getVisualSelection()
+		local text = getVisualSelectionText()
 		tb.live_grep({ default_text = text })
 	end, opts)
 
