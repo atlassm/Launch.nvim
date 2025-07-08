@@ -55,7 +55,7 @@ end
 -- Function to write yanked text directly to a new file
 local function write_yanked_text_to_file()
 	-- Get yanked text from register (assuming register "0" for yank)
-	local file_path = os.getenv("HOME") .. "/my_folder/yanks"
+	local file_path = os.getenv("HOME") .. "/internal/yanks"
 	local yanked_text = vim.fn.getreg("0")
 
 	-- Ensure the yanked text is not empty
@@ -83,6 +83,7 @@ local function write_yanked_text_to_file()
 	local command = string.format('echo -n "%s" | nc localhost 8378', yanked_text)
 	vim.fn.system(command)
 	-- send_yank_to_a_fixed_port(file_path)
+	print("yanked")
 end
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
